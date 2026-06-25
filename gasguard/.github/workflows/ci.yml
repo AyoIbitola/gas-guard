@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  contracts:
+    name: Foundry tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+
+      - name: Run forge tests
+        working-directory: contracts
+        run: forge test -vvv
+
+      - name: Check coverage
+        working-directory: contracts
+        run: |
+          forge coverage --report summary | tee coverage.txt
+          grep "src/DonationPool.sol" coverage.txt | grep "100.00%" || \
+            (echo "ERROR: DonationPool.sol line coverage is not 100%" && exit 1)
+
+  core:
+    name: TypeScript library tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: packages/core/pnpm-lock.yaml
+
+      - name: Install Foundry (for Anvil)
+        uses: foundry-rs/foundry-toolchain@v1
+
+      - name: Install dependencies
+        working-directory: packages/core
+        run: pnpm install --frozen-lockfile
+
+      - name: Run vitest
+        working-directory: packages/core
+        run: pnpm test

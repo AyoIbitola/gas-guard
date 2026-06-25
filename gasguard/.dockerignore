@@ -1,0 +1,26 @@
+# Dependency caches — reinstalled inside the image
+node_modules
+packages/core/node_modules
+apps/web/node_modules
+
+# Build outputs — rebuilt inside the image
+packages/core/dist
+apps/web/.next
+
+# Foundry/contracts — not needed for the frontend image
+contracts/
+
+# Secrets — must never be baked into the image; inject via Railway env vars
+.env
+.env.*
+apps/web/.env*
+contracts/.env
+
+# Version control
+.git
+.gitignore
+
+# Misc
+*.log
+.DS_Store
+README.md

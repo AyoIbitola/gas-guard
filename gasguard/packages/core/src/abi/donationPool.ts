@@ -1,0 +1,127 @@
+export const DONATION_POOL_ABI = [
+  {
+    type: "constructor",
+    inputs: [{ name: "_minDonation", type: "uint256", internalType: "uint256" }],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "contributions",
+    inputs: [{ name: "", type: "address", internalType: "address" }],
+    outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "donate",
+    inputs: [],
+    outputs: [],
+    stateMutability: "payable",
+  },
+  {
+    type: "function",
+    name: "getContribution",
+    inputs: [{ name: "donor", type: "address", internalType: "address" }],
+    outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "minDonation",
+    inputs: [],
+    outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "owner",
+    inputs: [],
+    outputs: [{ name: "", type: "address", internalType: "address" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "paused",
+    inputs: [],
+    outputs: [{ name: "", type: "bool", internalType: "bool" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "setPaused",
+    inputs: [{ name: "_paused", type: "bool", internalType: "bool" }],
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    name: "totalPooled",
+    inputs: [],
+    outputs: [{ name: "", type: "uint256", internalType: "uint256" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    name: "withdraw",
+    inputs: [],
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "event",
+    name: "DonationReceived",
+    inputs: [
+      { name: "donor", type: "address", indexed: true, internalType: "address" },
+      { name: "amount", type: "uint256", indexed: false, internalType: "uint256" },
+      { name: "timestamp", type: "uint256", indexed: false, internalType: "uint256" },
+    ],
+    anonymous: false,
+  },
+  {
+    type: "event",
+    name: "PausedStatusChanged",
+    inputs: [
+      { name: "isPaused", type: "bool", indexed: false, internalType: "bool" },
+      { name: "timestamp", type: "uint256", indexed: false, internalType: "uint256" },
+    ],
+    anonymous: false,
+  },
+  {
+    type: "event",
+    name: "Withdrawal",
+    inputs: [
+      { name: "to", type: "address", indexed: true, internalType: "address" },
+      { name: "amount", type: "uint256", indexed: false, internalType: "uint256" },
+      { name: "timestamp", type: "uint256", indexed: false, internalType: "uint256" },
+    ],
+    anonymous: false,
+  },
+  {
+    type: "error",
+    name: "ContractIsPaused",
+    inputs: [],
+  },
+  {
+    type: "error",
+    name: "DonationBelowMinimum",
+    inputs: [
+      { name: "sent", type: "uint256", internalType: "uint256" },
+      { name: "minimum", type: "uint256", internalType: "uint256" },
+    ],
+  },
+  {
+    type: "error",
+    name: "NoFundsToWithdraw",
+    inputs: [],
+  },
+  {
+    type: "error",
+    name: "NotOwner",
+    inputs: [],
+  },
+  {
+    type: "error",
+    name: "WithdrawalTransferFailed",
+    inputs: [],
+  },
+] as const;
